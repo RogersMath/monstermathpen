@@ -1,0 +1,152 @@
+{
+  "numberNibbler": {
+    "name": "Number Nibbler",
+    "type": "Addition",
+    "description": "A cute, round creature with big eyes and a mouth shaped like a plus sign.",
+    "baseLevel": 1,
+    "power": 10,
+    "catchPhrase": "Let's add up the fun!",
+    "minPlayerLevel": 1,
+    "maxPlayerLevel": 5
+  },
+  "subtractionSerpent": {
+    "name": "Subtraction Serpent",
+    "type": "Subtraction",
+    "description": "A long, sleek creature with scales that look like minus signs.",
+    "baseLevel": 2,
+    "power": 15,
+    "catchPhrase": "I'll charm you with some smooth subtraction!",
+    "minPlayerLevel": 1,
+    "maxPlayerLevel": 6
+  },
+  "multiplyMoth": {
+    "name": "Multiply Moth",
+    "type": "Multiplication",
+    "description": "A colorful moth with wing patterns that resemble multiplication tables.",
+    "baseLevel": 3,
+    "power": 20,
+    "catchPhrase": "Let's flutter into multiplication!",
+    "minPlayerLevel": 2,
+    "maxPlayerLevel": 7
+  },
+  "divisionDragon": {
+    "name": "Division Dragon",
+    "type": "Division",
+    "description": "A majestic dragon whose scales are arranged in perfect divisible patterns.",
+    "baseLevel": 4,
+    "power": 25,
+    "catchPhrase": "Divide and conquer, that's my motto!",
+    "minPlayerLevel": 3,
+    "maxPlayerLevel": 8
+  },
+  "fractionFox": {
+    "name": "Fraction Fox",
+    "type": "Fractions",
+    "description": "A sly fox with a tail that can split into equal parts.",
+    "baseLevel": 5,
+    "power": 30,
+    "catchPhrase": "Let's slice and dice those fractions!",
+    "minPlayerLevel": 4,
+    "maxPlayerLevel": 9
+  },
+  "decimalDolphin": {
+    "name": "Decimal Dolphin",
+    "type": "Decimals",
+    "description": "A playful dolphin that can precisely divide itself into tenths and hundredths.",
+    "baseLevel": 6,
+    "power": 35,
+    "catchPhrase": "Dive deep into the world of decimals!",
+    "minPlayerLevel": 5,
+    "maxPlayerLevel": 10
+  },
+  "percentagePenguin": {
+    "name": "Percentage Penguin",
+    "type": "Percentages",
+    "description": "A dapper penguin with a tuxedo pattern that constantly shifts in percentage increments.",
+    "baseLevel": 7,
+    "power": 40,
+    "catchPhrase": "100% ready for a cool percentage challenge!",
+    "minPlayerLevel": 6,
+    "maxPlayerLevel": 11
+  },
+  "algebraicApe": {
+    "name": "Algebraic Ape",
+    "type": "Algebra",
+    "description": "A wise-looking ape that juggles variables and equations with ease.",
+    "baseLevel": 8,
+    "power": 45,
+    "catchPhrase": "X marks the spot for algebraic adventures!",
+    "minPlayerLevel": 7,
+    "maxPlayerLevel": 12
+  },
+  "geometryGiraffe": {
+    "name": "Geometry Giraffe",
+    "type": "Geometry",
+    "description": "A tall giraffe whose spots form various geometric shapes.",
+    "baseLevel": 9,
+    "power": 50,
+    "catchPhrase": "Let's shape up our geometry skills!",
+    "minPlayerLevel": 8,
+    "maxPlayerLevel": 13
+  },
+  "probabilityPanda": {
+    "name": "Probability Panda",
+    "type": "Probability",
+    "description": "A cuddly panda with black and white fur that rearranges in random patterns.",
+    "baseLevel": 10,
+    "power": 55,
+    "catchPhrase": "What are the odds we'll have fun? 100%!",
+    "minPlayerLevel": 9,
+    "maxPlayerLevel": 14
+  },
+  "statisticsSquirrel": {
+    "name": "Statistics Squirrel",
+    "type": "Statistics",
+    "description": "An energetic squirrel that collects and organizes data acorns.",
+    "baseLevel": 11,
+    "power": 60,
+    "catchPhrase": "Let's crunch some numbers and gather data!",
+    "minPlayerLevel": 10,
+    "maxPlayerLevel": 15
+  },
+  "trigonometryTurtle": {
+    "name": "Trigonometry Turtle",
+    "type": "Trigonometry",
+    "description": "A thoughtful turtle whose shell patterns represent sine, cosine, and tangent waves.",
+    "baseLevel": 12,
+    "power": 65,
+    "catchPhrase": "Slow and steady wins the trig race!",
+    "minPlayerLevel": 11,
+    "maxPlayerLevel": 16
+  },
+  "calculusCat": {
+    "name": "Calculus Cat",
+    "type": "Calculus",
+    "description": "A sleek cat that can instantly calculate areas under curves with its whiskers.",
+    "baseLevel": 13,
+    "power": 70,
+    "catchPhrase": "Let's derive some fun and integrate excitement!",
+    "minPlayerLevel": 12,
+    "maxPlayerLevel": 17
+  },
+  "vectorVulture": {
+    "name": "Vector Vulture",
+    "type": "Vectors",
+    "description": "A majestic vulture whose flight path always follows perfect vector calculations.",
+    "baseLevel": 14,
+    "power": 75,
+    "catchPhrase": "Let's soar through vector space together!",
+    "minPlayerLevel": 13,
+    "maxPlayerLevel": 18
+  },
+  "matrixMeerkat": {
+    "name": "Matrix Meerkat",
+    "type": "Matrices",
+    "description": "A vigilant meerkat that can arrange itself into perfect rows and columns.",
+    "baseLevel": 15,
+    "power": 80,
+    "catchPhrase": "Stand tall and let's solve this matrix!",
+    "minPlayerLevel": 14,
+    "maxPlayerLevel": 20
+  }
+}
