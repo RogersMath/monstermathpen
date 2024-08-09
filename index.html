@@ -39,98 +39,12 @@
         <div id="game-stats" class="bg-slate-200 p-4 rounded-lg">
             <h2 class="text-xl font-semibold mb-2">Player Stats</h2>
             <p id="player-level">Level: 1</p>
-            <p id="addition-skill">Addition Skill: 2</p>
+            <p id="addition-skill">Addition Skill: 1</p>
             <p id="subtraction-skill">Subtraction Skill: 1</p>
             <p id="monsters-captured">Monsters Captured: 0</p>
         </div>
     </div>
 
-    <script>
-        const gameOutput = document.getElementById('game-output');
-        const userInputField = document.getElementById('user-input-field');
-        const submitBtn = document.getElementById('submit-btn');
-        const playerLevel = document.getElementById('player-level');
-        const additionSkill = document.getElementById('addition-skill');
-        const subtractionSkill = document.getElementById('subtraction-skill');
-        const monstersCaptured = document.getElementById('monsters-captured');
-
-        let gameState = {
-            currentScene: 'village',
-            playerStats: {
-                level: 1,
-                additionSkill: 2,
-                subtractionSkill: 1,
-                monstersCaptured: 0
-            },
-            monsterPen: []
-        };
-
-        function updateGameOutput(message) {
-            gameOutput.innerHTML += `<p>${message}</p>`;
-            gameOutput.scrollTop = gameOutput.scrollHeight;
-        }
-
-        function updatePlayerStats() {
-            playerLevel.textContent = `Level: ${gameState.playerStats.level}`;
-            additionSkill.textContent = `Addition Skill: ${gameState.playerStats.additionSkill}`;
-            subtractionSkill.textContent = `Subtraction Skill: ${gameState.playerStats.subtractionSkill}`;
-            monstersCaptured.textContent = `Monsters Captured: ${gameState.playerStats.monstersCaptured}`;
-        }
-
-        function handleUserInput() {
-            const userInput = userInputField.value.trim();
-            userInputField.value = '';
-
-            // Process user input based on current game state
-            if (gameState.currentScene === 'village') {
-                handleVillageScene(userInput);
-            } else if (gameState.currentScene === 'dungeon') {
-                handleDungeonScene(userInput);
-            }
-            // Add more scene handlers as needed
-        }
-
-        function handleVillageScene(input) {
-            switch (input) {
-                case '1':
-                    gameState.currentScene = 'dungeon';
-                    updateGameOutput("You enter the dungeon. It's dark and mysterious...");
-                    // Present dungeon options
-                    break;
-                case '2':
-                    updateGameOutput("You visit the Monster Trader. They're not here right now.");
-                    break;
-                case '3':
-                    updateGameOutput("You check your Monster Pen. It's empty at the moment.");
-                    break;
-                case '4':
-                    updateGameOutput("You review your stats.");
-                    updatePlayerStats();
-                    break;
-                default:
-                    updateGameOutput("Invalid choice. Please try again.");
-            }
-        }
-
-        function handleDungeonScene(input) {
-            // Implement dungeon logic here
-            updateGameOutput("You explore the dungeon...");
-            // Add monster encounters, math challenges, etc.
-        }
-
-        submitBtn.addEventListener('click', handleUserInput);
-        userInputField.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                handleUserInput();
-            }
-        });
-
-        // Initialize the game
-        updateGameOutput("Welcome to Math Monster Pen! You're in the village square. What would you like to do?");
-        updateGameOutput("1. Enter the nearby dungeon");
-        updateGameOutput("2. Visit the Monster Trader");
-        updateGameOutput("3. Check your Monster Pen");
-        updateGameOutput("4. View your stats");
-    </script>
+    <script type="module" src="js/main.js"></script>
 </body>
 </html>
