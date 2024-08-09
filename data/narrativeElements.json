@@ -1,0 +1,85 @@
+{
+  "village": {
+    "enter": [
+      "You step into the bustling village square, where numbers and equations seem to float in the air.",
+      "The familiar sights and sounds of Numberton greet you as you enter the village.",
+      "You arrive in the heart of the village, where math enthusiasts of all ages gather."
+    ],
+    "trader": [
+      "The Monster Trader's shop is filled with curious contraptions and glowing equations.",
+      "You approach the Monster Trader, who greets you with a smile and a mathematical riddle.",
+      "The Monster Trader's eyes light up as you enter, eager to show you the latest math monsters."
+    ],
+    "monsterPen": [
+      "Your math monsters perk up as you approach their pen, ready for new adventures.",
+      "The air around the Monster Pen crackles with mathematical energy.",
+      "You hear the soft murmur of numbers as your monsters practice their skills in the pen."
+    ],
+    "stats": [
+      "You take a moment to reflect on your progress as a math monster tamer.",
+      "The village elder nods approvingly as you review your growing mathematical prowess.",
+      "You feel a surge of pride as you consider how far you've come in your math adventure."
+    ],
+    "return": [
+      "You return to the safety of the village, your mind buzzing with new mathematical insights.",
+      "The villagers welcome you back, eager to hear tales of your dungeon adventures.",
+      "As you step back into Numberton, you feel recharged and ready for new challenges."
+    ]
+  },
+  "dungeon": {
+    "enter": [
+      "The dungeon entrance looms before you, mysterious symbols etched into its ancient stone.",
+      "You steel yourself as you step into the shadowy corridors of the math dungeon.",
+      "The air grows cooler as you descend into the dungeon, the whisper of numbers echoing softly."
+    ],
+    "encounter": [
+      "A pair of glowing eyes emerges from the darkness, belonging to a {monster}.",
+      "You hear a soft rustle, and suddenly a {monster} appears before you!",
+      "As you turn a corner, you come face to face with a {monster}, ready to test your skills."
+    ],
+    "success": [
+      "The {monster} nods respectfully before joining your team, impressed by your mathematical prowess.",
+      "With a flash of numbers, the {monster} shrinks and happily bounds into your monster pen.",
+      "Your correct answer resonates through the dungeon, and the {monster} eagerly becomes your new ally."
+    ],
+    "failure": [
+      "The {monster} gives you an encouraging look before disappearing into the shadows. Better luck next time!",
+      "Your answer fades away, and the {monster} vanishes in a puff of mathematical symbols.",
+      "The {monster} shakes its head gently and retreats, leaving you with a valuable learning experience."
+    ],
+    "explore": [
+      "You cautiously navigate the twisting corridors, mathematical challenges lurking around every corner.",
+      "Ancient arithmetic artifacts line the walls as you delve deeper into the dungeon.",
+      "The air thickens with mathematical mystery as you explore further into the unknown."
+    ]
+  },
+  "battle": {
+    "start": [
+      "The {monster} challenges you to a battle of wits and numbers!",
+      "Mathematical energy crackles in the air as the {monster} prepares its challenge.",
+      "You face off against the {monster}, ready to prove your mathematical mettle."
+    ],
+    "victory": [
+      "Your mathematical skills prove superior, and the {monster} acknowledges your victory.",
+      "With a final burst of correct calculations, you emerge victorious against the {monster}.",
+      "The {monster} bows in respect to your mathematical mastery."
+    ],
+    "defeat": [
+      "The {monster}'s challenge proves too tricky this time, but you've learned from the experience.",
+      "You stumble in your calculations, and the {monster} slips away. Don't give up!",
+      "The battle of numbers ends in the {monster}'s favor, but you're determined to improve."
+    ]
+  },
+  "levelUp": {
+    "player": [
+      "You feel a surge of mathematical understanding course through you. You've reached level {level}!",
+      "The numbers around you seem clearer than ever before. Welcome to level {level}!",
+      "Your mind expands with new mathematical insights. You are now level {level}!"
+    ],
+    "monster": [
+      "Your {monster} glows with newfound power, reaching level {level}!",
+      "A burst of equations surrounds your {monster} as it advances to level {level}!",
+      "Your {monster}'s mathematical abilities sharpen as it grows to level {level}!"
+    ]
+  }
+}
