@@ -1,213 +1,132 @@
 // main.js
-import { generateNarrative } from './narrativeGenerator.js';
-import { generateProblem } from './problemGenerator.js';
-import { getMonster, updateMonster } from './monsterManager.js';
-
-// DOM elements
-const gameOutput = document.getElementById('game-output');
-const userInputField = document.getElementById('user-input-field');
-const submitBtn = document.getElementById('submit-btn');
-const playerLevel = document.getElementById('player-level');
-const additionSkill = document.getElementById('addition-skill');
-const subtractionSkill = document.getElementById('subtraction-skill');
-const monstersCaptured = document.getElementById('monsters-captured');
-
-// Game state
 let gameState = {
-    currentScene: 'village',
-    playerStats: {
-        level: 1,
-        additionSkill: 1,
-        subtractionSkill: 1,
-        monstersCaptured: 0
-    },
-    monsterPen: [],
-    currentProblem: null,
-    currentMonster: null
+    playerLevel: 1,
+    monsters: [],
+    currentLocation: 'village'
 };
 
-function updateGameOutput(message) {
-    const p = document.createElement('p');
-    p.textContent = message;
-    gameOutput.appendChild(p);
-    gameOutput.scrollTop = gameOutput.scrollHeight;
+function initGame() {
+    MonsterManager.loadMonsters();
+    updateGameArea();
 }
 
-function updatePlayerStats() {
-    playerLevel.textContent = `Level: ${gameState.playerStats.level}`;
-    additionSkill.textContent = `Addition Skill: ${gameState.playerStats.additionSkill}`;
-    subtractionSkill.textContent = `Subtraction Skill: ${gameState.playerStats.subtractionSkill}`;
-    monstersCaptured.textContent = `Monsters Captured: ${gameState.playerStats.monstersCaptured}`;
-}
+function updateGameArea() {
+    const gameArea = document.getElementById('game-area');
+    gameArea.innerHTML = '';
 
-function handleUserInput() {
-    const userInput = userInputField.value.trim();
-    userInputField.value = '';
-
-    if (gameState.currentProblem) {
-        handleMathProblem(userInput);
-    } else if (gameState.currentScene === 'village') {
-        handleVillageScene(userInput);
-    } else if (gameState.currentScene === 'dungeon') {
-        handleDungeonScene(userInput);
+    if (gameState.currentLocation === 'village') {
+        displayVillage();
+    } else if (gameState.currentLocation === 'dungeon') {
+        displayDungeon();
     }
 }
 
-function handleVillageScene(input) {
-    switch (input) {
-        case '1':
-            gameState.currentScene = 'dungeon';
-            const dungeonEntry = generateNarrative('dungeon', 'enter');
-            updateGameOutput(dungeonEntry);
-            presentDungeonOptions();
-            break;
-        case '2':
-            updateGameOutput(generateNarrative('village', 'trader'));
-            break;
-        case '3':
-            updateGameOutput(generateNarrative('village', 'monsterPen'));
-            displayMonsterPen();
-            break;
-        case '4':
-            updateGameOutput(generateNarrative('village', 'stats'));
-            updatePlayerStats();
-            break;
-        default:
-            updateGameOutput("Invalid choice. Please try again.");
-    }
-}
-
-function handleDungeonScene(input) {
-    switch (input) {
-        case '1':
-        case '2':
-        case '3':
-            encounterMonster();
-            break;
-        case '4':
-            gameState.currentScene = 'village';
-            updateGameOutput(generateNarrative('village', 'return'));
-            presentVillageOptions();
-            break;
-        default:
-            updateGameOutput("Invalid choice. Please try again.");
-    }
-}
-
-function encounterMonster() {
-    const monsterTypes = ['numberNibbler', 'subtractionSerpent'];
-    const randomMonster = monsterTypes[Math.floor(Math.random() * monsterTypes.length)];
-    gameState.currentMonster = getMonster(randomMonster);
+function displayVillage() {
+    const gameArea = document.getElementById('game-area');
+    const narrative = NarrativeGenerator.generate('village', 'enter');
     
-    if (!gameState.currentMonster) {
-        console.error('Failed to get monster:', randomMonster);
-        updateGameOutput("Oops! Something went wrong. Let's try again.");
-        presentDungeonOptions();
-        return;
-    }
-    
-    updateGameOutput(generateNarrative('dungeon', 'encounter').replace('{monster}', gameState.currentMonster.name));
-    updateGameOutput(gameState.currentMonster.catchPhrase);
-    
-    presentMathChallenge();
+    gameArea.innerHTML = `
+        <p class="mb-4">${narrative}</p>
+        <button onclick="enterDungeon()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+            Enter Dungeon
+        </button>
+        <button onclick="viewMonsters()" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded ml-2">
+            View Monsters
+        </button>
+    `;
 }
 
-function presentMathChallenge() {
-    gameState.currentProblem = generateProblem(gameState.currentMonster.type, gameState.currentMonster.baseLevel);
-    updateGameOutput(`${gameState.currentMonster.name} challenges you with a problem: ${gameState.currentProblem.question}`);
-    updateGameOutput("Enter your answer:");
+function displayDungeon() {
+    const gameArea = document.getElementById('game-area');
+    const narrative = NarrativeGenerator.generate('dungeon', 'enter');
+    
+    gameArea.innerHTML = `
+        <p class="mb-4">${narrative}</p>
+        <button onclick="encounter()" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
+            Find Monster
+        </button>
+        <button onclick="returnToVillage()" class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded ml-2">
+            Return to Village
+        </button>
+    `;
 }
 
-function handleMathProblem(userAnswer) {
-    if (!gameState.currentProblem) {
-        console.error('No current problem found');
-        updateGameOutput("Oops! Something went wrong. Let's continue exploring.");
-        presentDungeonOptions();
-        return;
-    }
+function enterDungeon() {
+    gameState.currentLocation = 'dungeon';
+    updateGameArea();
+}
 
-    const correctAnswer = gameState.currentProblem.answer;
-    if (Number(userAnswer) === correctAnswer) {
-        updateGameOutput(generateNarrative('battle', 'victory').replace('{monster}', gameState.currentMonster.name));
-        updateGameOutput(`Congratulations! You've captured the ${gameState.currentMonster.name}!`);
-        gameState.playerStats.monstersCaptured++;
-        gameState.monsterPen.push(gameState.currentMonster);
-        updatePlayerStats();
+function returnToVillage() {
+    gameState.currentLocation = 'village';
+    updateGameArea();
+}
+
+function viewMonsters() {
+    const gameArea = document.getElementById('game-area');
+    gameArea.innerHTML = '<h2 class="text-2xl font-bold mb-4">Your Monsters</h2>';
+    
+    gameState.monsters.forEach(monster => {
+        gameArea.innerHTML += `
+            <div class="mb-2">
+                <strong>${monster.name}</strong> (Level ${monster.level}) - ${monster.type}
+            </div>
+        `;
+    });
+    
+    gameArea.innerHTML += `
+        <button onclick="returnToVillage()" class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded mt-4">
+            Back to Village
+        </button>
+    `;
+}
+
+function encounter() {
+    const monster = MonsterManager.getRandomMonster(gameState.playerLevel);
+    const problem = ProblemGenerator.generate(monster.type, gameState.playerLevel);
+    
+    const gameArea = document.getElementById('game-area');
+    const narrative = NarrativeGenerator.generate('dungeon', 'encounter', { monster: monster.name });
+    
+    gameArea.innerHTML = `
+        <p class="mb-4">${narrative}</p>
+        <p class="mb-4">Solve this problem to catch ${monster.name}:</p>
+        <p class="mb-4 font-bold">${problem.question}</p>
+        <input type="text" id="answer" class="border-2 border-gray-300 p-2 rounded" placeholder="Your answer">
+        <button onclick="checkAnswer('${problem.answer}', '${monster.name}')" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-2">
+            Submit
+        </button>
+    `;
+}
+
+function checkAnswer(correctAnswer, monsterName) {
+    const userAnswer = document.getElementById('answer').value;
+    const gameArea = document.getElementById('game-area');
+    
+    if (userAnswer === correctAnswer) {
+        const monster = MonsterManager.getMonsterByName(monsterName);
+        gameState.monsters.push(monster);
+        const narrative = NarrativeGenerator.generate('dungeon', 'success', { monster: monsterName });
+        gameArea.innerHTML = `
+            <p class="mb-4">${narrative}</p>
+            <button onclick="encounter()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                Find Another Monster
+            </button>
+            <button onclick="returnToVillage()" class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded ml-2">
+                Return to Village
+            </button>
+        `;
     } else {
-        updateGameOutput(`That's not quite right. The correct answer was ${correctAnswer}.`);
-        updateGameOutput(generateNarrative('battle', 'defeat').replace('{monster}', gameState.currentMonster.name));
-    }
-    
-    gameState.currentProblem = null;
-    gameState.currentMonster = null;
-    
-    updateGameOutput("What would you like to do next?");
-    updateGameOutput("1. Continue exploring the dungeon");
-    updateGameOutput("2. Return to the village");
-}
-
-function presentVillageOptions() {
-    updateGameOutput(generateNarrative('village', 'enter'));
-    updateGameOutput("What would you like to do?");
-    updateGameOutput("1. Enter the dungeon");
-    updateGameOutput("2. Visit the Monster Trader");
-    updateGameOutput("3. Check your Monster Pen");
-    updateGameOutput("4. View your stats");
-}
-
-function presentDungeonOptions() {
-    updateGameOutput("Which way do you want to go?");
-    updateGameOutput("1. Take the left path");
-    updateGameOutput("2. Go straight ahead");
-    updateGameOutput("3. Choose the right tunnel");
-    updateGameOutput("4. Return to the village");
-}
-
-function displayMonsterPen() {
-    if (gameState.monsterPen.length === 0) {
-        updateGameOutput("Your Monster Pen is empty. Capture some monsters in the dungeon!");
-    } else {
-        gameState.monsterPen.forEach(monster => {
-            updateGameOutput(`${monster.name} - Level ${monster.baseLevel} ${monster.type} type`);
-        });
+        const narrative = NarrativeGenerator.generate('dungeon', 'failure', { monster: monsterName });
+        gameArea.innerHTML = `
+            <p class="mb-4">${narrative}</p>
+            <button onclick="encounter()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                Try Again
+            </button>
+            <button onclick="returnToVillage()" class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded ml-2">
+                Return to Village
+            </button>
+        `;
     }
 }
 
-async function initGame() {
-    console.log("Initializing game...");
-    updateGameOutput("Loading Math Monster Pen...");
-    
-    try {
-        const [narrativeResponse, monstersResponse] = await Promise.all([
-            fetch('/data/narrativeElements.json'),
-            fetch('/data/monsters.json')
-        ]);
-        
-        if (!narrativeResponse.ok || !monstersResponse.ok) {
-            throw new Error(`HTTP error! status: ${narrativeResponse.status}, ${monstersResponse.status}`);
-        }
-
-        const narrativeData = await narrativeResponse.json();
-        const monstersData = await monstersResponse.json();
-
-        console.log('Narrative data loaded:', narrativeData);
-        console.log('Monsters data loaded:', monstersData);
-
-        updateGameOutput("Welcome to Math Monster Pen!");
-        presentVillageOptions();
-    } catch (error) {
-        console.error('Error loading game data:', error);
-        updateGameOutput("Error loading game data. Please check the console and try again.");
-    }
-}
-
-// Event listeners
-submitBtn.addEventListener('click', handleUserInput);
-userInputField.addEventListener('keypress', function(e) {
-    if (e.key === 'Enter') {
-        handleUserInput();
-    }
-});
-
-// Initialize the game
-initGame();
+window.onload = initGame;
