@@ -1,6 +1,6 @@
 // monsterManager.js
 
-import monsters from '../data/monsters.json' assert { type: 'json' };
+import monsters from '../data/monsters.json';
 
 /**
  * Retrieves a monster by its ID.
