@@ -1,6 +1,6 @@
 // narrativeGenerator.js
 
-import narrativeElements from '../data/narrativeElements.json' assert { type: 'json' };
+import narrativeElements from '../data/narrativeElements.json';
 
 /**
  * Generates a narrative snippet based on the given scene and action.
