@@ -1,14 +1,20 @@
 // narrativeGenerator.js
 
-import narrativeElements from '../data/narrativeElements.json';
+let narrativeElements = null;
 
-/**
- * Generates a narrative snippet based on the given scene and action.
- * @param {string} scene - The current game scene (e.g., 'village', 'dungeon')
- * @param {string} action - The specific action or event (e.g., 'enter', 'encounter')
- * @returns {string} A randomly selected narrative snippet
- */
+async function loadNarrativeElements() {
+    const response = await fetch('../data/narrativeElements.json');
+    narrativeElements = await response.json();
+}
+
+loadNarrativeElements();
+
 export function generateNarrative(scene, action) {
+    if (!narrativeElements) {
+        console.warn('Narrative elements not loaded yet');
+        return "The adventure continues...";
+    }
+
     if (!narrativeElements[scene] || !narrativeElements[scene][action]) {
         console.warn(`No narrative elements found for scene: ${scene}, action: ${action}`);
         return "You continue your adventure...";
