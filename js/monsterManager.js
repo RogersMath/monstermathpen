@@ -1,20 +1,26 @@
 // monsterManager.js
 
-import monsters from '../data/monsters.json';
+let monsters = null;
 
-/**
- * Retrieves a monster by its ID.
- * @param {string} id - The unique identifier of the monster
- * @returns {Object} A copy of the monster object
- */
+async function loadMonsters() {
+    const response = await fetch('../data/monsters.json');
+    monsters = await response.json();
+}
+
+loadMonsters();
+
 export function getMonster(id) {
+    if (!monsters) {
+        console.warn('Monsters not loaded yet');
+        return null;
+    }
+
     if (!monsters[id]) {
         console.warn(`Monster with id ${id} not found.`);
         return null;
     }
-    return { ...monsters[id], id }; // Return a copy with the id included
+    return { ...monsters[id], id };
 }
-
 /**
  * Updates a monster's stats.
  * @param {string} id - The unique identifier of the monster
