@@ -27,7 +27,9 @@ let gameState = {
 };
 
 function updateGameOutput(message) {
-    gameOutput.innerHTML += `<p>${message}</p>`;
+    const p = document.createElement('p');
+    p.textContent = message;
+    gameOutput.appendChild(p);
     gameOutput.scrollTop = gameOutput.scrollHeight;
 }
 
@@ -97,6 +99,12 @@ function encounterMonster() {
     const randomMonster = monsterTypes[Math.floor(Math.random() * monsterTypes.length)];
     gameState.currentMonster = getMonster(randomMonster);
     
+    if (!gameState.currentMonster) {
+        updateGameOutput("Oops! It seems the monster got away. Let's keep exploring.");
+        presentDungeonOptions();
+        return;
+    }
+
     updateGameOutput(generateNarrative('dungeon', 'encounter').replace('{monster}', gameState.currentMonster.name));
     updateGameOutput(gameState.currentMonster.catchPhrase);
     
@@ -120,6 +128,7 @@ function handleMathProblem(userAnswer) {
 }
 
 function presentVillageOptions() {
+    updateGameOutput(generateNarrative('village', 'enter'));
     updateGameOutput("What would you like to do?");
     updateGameOutput("1. Enter the dungeon");
     updateGameOutput("2. Visit the Monster Trader");
@@ -145,9 +154,22 @@ function displayMonsterPen() {
     }
 }
 
-function initGame() {
-    updateGameOutput("Welcome to Math Monster Pen!");
-    presentVillageOptions();
+async function initGame() {
+    updateGameOutput("Loading Math Monster Pen...");
+    
+    try {
+        // Wait for narrative elements and monsters to load
+        await Promise.all([
+            fetch('../data/narrativeElements.json'),
+            fetch('../data/monsters.json')
+        ]);
+
+        updateGameOutput("Welcome to Math Monster Pen!");
+        presentVillageOptions();
+    } catch (error) {
+        console.error("Failed to load game data:", error);
+        updateGameOutput("Oops! There was a problem loading the game. Please refresh and try again.");
+    }
 }
 
 // Event listeners
